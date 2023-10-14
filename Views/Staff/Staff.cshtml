@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DataBase_Nhom2.Models.NhanVien>
+
+@{
+    ViewBag.Title = "Danh sách nhân viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách nhân viên</h2>
+
+<p>
+    @Html.ActionLink("Thêm nhân viên", "AddStaff")
+</p>
+<div class="row mt-2">
+    <div class="col-md-12">
+        <form class="d-flex gap-2" method="get">
+            <input type="text" class="form-control" name="filter" placeholder="Nhập tên cần tìm..." />
+            <button class="btn btn-success" type="submit">Tìm</button>
+            
+        </form>
+    </div>
+
+</div>
+
+<table class="table mt-3">
+    <tr>
+        <th>
+            Mã Nhân Viên
+        </th>
+        <th>
+            Tên Nhân Viên
+        </th>
+        <th>
+            Hình ảnh
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        <th>
+            Phòng Ban
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.maNhanVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tenNhanVien)
+            </td>
+            <td>
+                <img src="@item.hinhAnh" alt="Hình ảnh" style="width: 100px; height: 100px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ngaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhongBan.tenPhong)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditStaff", new { id = item.maNhanVien }) |
+                @Html.ActionLink("Delete", "DeleteStaff", new { id = item.maNhanVien })
+            </td>
+        </tr>
+    }
+
+</table>

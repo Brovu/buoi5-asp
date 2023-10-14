@@ -1,0 +1,40 @@
+﻿@model DataBase_Nhom2.Models.PhongBan
+
+@{
+    ViewBag.Title = "Thêm Phòng Ban";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thêm Phòng Ban</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    
+
+    <div class="form-group">
+        <label class="control-label">Tên Phòng Ban</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.tenPhong, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.tenPhong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Thêm" class="btn btn-success mt-2" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Trở lại", "Index")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+}
