@@ -13,8 +13,9 @@ namespace DataBase_Nhom2.Controllers
         // GET: Staff
         public ActionResult Staff(string filter, int ?id)
         {
+            /*m => m.tenNhanVien.ToLower().Contains(filter.ToLower()) == true & (*/
             CompanyEntities1 db = new CompanyEntities1();
-            List<NhanVien> listNews = db.NhanViens.Where(m => m.tenNhanVien.ToLower().Contains(filter.ToLower()) == true & (m.maPhong == id | id == null)).ToList();
+            List<NhanVien> listNews = db.NhanViens.Where(m => m.maPhong == id | id == null).ToList();
             if (listNews.Count == 0)
             {
                 return View(db.NhanViens.ToList());

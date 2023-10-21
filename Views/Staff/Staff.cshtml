@@ -12,10 +12,34 @@
 </p>
 <div class="row mt-2">
     <div class="col-md-12">
+        <!--<form class="d-flex gap-2" method="get">
+            <input type="text" class="form-control" name="filter" placeholder="Nhập tên cần tìm..." />-->
+
+            @*<select name="id" class="form-control">
+                <option value="">Chọn Phòng ban</option>
+                @foreach (var i in new DataBase_Nhom2.Models.CompanyEntities1().PhongBans.ToList())
+                {
+                    <option value="@i.maPhong">
+                        @i.tenPhong
+                    </option>
+
+                }
+            </select>*@
+            <!--<button class="btn btn-success" type="submit">Tìm</button>
+        </form>-->
         <form class="d-flex gap-2" method="get">
-            <input type="text" class="form-control" name="filter" placeholder="Nhập tên cần tìm..." />
-            <button class="btn btn-success" type="submit">Tìm</button>
-            
+
+            <select name="id" class="form-control">
+                <option value="">Chọn Phòng ban</option>
+                @foreach (var i in new DataBase_Nhom2.Models.CompanyEntities1().PhongBans.ToList())
+                {
+                    <option value="@i.maPhong">
+                        @i.tenPhong
+                    </option>
+
+                }
+            </select>
+            <button class="btn btn-success" type="submit">Lọc</button>
         </form>
     </div>
 
