@@ -4,6 +4,7 @@
     <EntitySetMapping Name="NhanViens">
       <EntityTypeMapping TypeName="CompanyModel.NhanVien">
         <MappingFragment StoreEntitySet="NhanVien">
+          <ScalarProperty Name="maChucVu" ColumnName="maChucVu" />
           <ScalarProperty Name="maNhanVien" ColumnName="maNhanVien" />
           <ScalarProperty Name="tenNhanVien" ColumnName="tenNhanVien" />
           <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
@@ -29,6 +30,14 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChucVus">
+      <EntityTypeMapping TypeName="CompanyModel.ChucVu">
+        <MappingFragment StoreEntitySet="ChucVu">
+          <ScalarProperty Name="tenChucVu" ColumnName="tenChucVu" />
+          <ScalarProperty Name="maChucVu" ColumnName="maChucVu" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

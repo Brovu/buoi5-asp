@@ -13,22 +13,19 @@ namespace DataBase_Nhom2.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class NhanVien
+    public partial class ChucVu
     {
-        public int maNhanVien { get; set; }
+        public ChucVu()
+        {
+            this.NhanViens = new HashSet<NhanVien>();
+        }
 
-        [Required(ErrorMessage ="Tên nhân viên không được để trống")]
-        public string tenNhanVien { get; set; }
-        public Nullable<System.DateTime> ngaySinh { get; set; }
-
-        [Range(1000, 15000, ErrorMessage = "Lương phải từ 1000 đến 15000")]
-
-        public Nullable<decimal> luong { get; set; }
-        public string hinhAnh { get; set; }
-        public Nullable<int> maPhong { get; set; }
+        [Required(ErrorMessage = "Mã chức vụ không được để trống")]
         public string maChucVu { get; set; }
+
+        [Required(ErrorMessage = "Tên chức vụ không được để trống")]
+        public string tenChucVu { get; set; }
     
-        public virtual PhongBan PhongBan { get; set; }
-        public virtual ChucVu ChucVu { get; set; }
+        public virtual ICollection<NhanVien> NhanViens { get; set; }
     }
 }

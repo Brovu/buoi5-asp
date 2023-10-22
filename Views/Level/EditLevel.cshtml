@@ -1,0 +1,44 @@
+﻿@model DataBase_Nhom2.Models.ChucVu
+
+@{
+    ViewBag.Title = "Sửa chức vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sửa thông tin chức vụ</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <div class="form-group">
+        <label class="control-label">Mã chức vụ</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.maChucVu, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.maChucVu, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label">Tên chức vụ mới</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.tenChucVu, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.tenChucVu, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Cập nhật" class="btn btn-info mt-2" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Trở lại", "Level")
+</div>

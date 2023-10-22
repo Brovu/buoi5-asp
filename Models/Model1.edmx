@@ -4,7 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChucVu">
+          <Key>
+            <PropertyRef Name="maChucVu" />
+          </Key>
+          <Property Name="maChucVu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tenChucVu" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="NhanVien">
           <Key>
             <PropertyRef Name="maNhanVien" />
@@ -15,6 +22,7 @@
           <Property Name="luong" Type="decimal" Precision="10" Scale="2" />
           <Property Name="hinhAnh" Type="nvarchar(max)" />
           <Property Name="maPhong" Type="int" />
+          <Property Name="maChucVu" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PhongBan">
           <Key>
@@ -33,6 +41,18 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <Association Name="FK_NhanVien_ChucVu">
+          <End Role="ChucVu" Type="Self.ChucVu" Multiplicity="0..1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucVu">
+              <PropertyRef Name="maChucVu" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="maChucVu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NhanVien_PhongBan">
           <End Role="PhongBan" Type="Self.PhongBan" Multiplicity="0..1" />
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
@@ -46,16 +66,20 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CompanyModelStoreContainer">
+          <EntitySet Name="ChucVu" EntityType="Self.ChucVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhongBan" EntityType="Self.PhongBan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_NhanVien_ChucVu" Association="Self.FK_NhanVien_ChucVu">
+            <End Role="ChucVu" EntitySet="ChucVu" />
+            <End Role="NhanVien" EntitySet="NhanVien" />
+          </AssociationSet>
           <AssociationSet Name="FK_NhanVien_PhongBan" Association="Self.FK_NhanVien_PhongBan">
             <End Role="PhongBan" EntitySet="PhongBan" />
             <End Role="NhanVien" EntitySet="NhanVien" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -70,6 +94,8 @@
           <Property Name="hinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="maPhong" Type="Int32" />
           <NavigationProperty Name="PhongBan" Relationship="Self.FK_NhanVien_PhongBan" FromRole="NhanVien" ToRole="PhongBan" />
+          <Property Name="maChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChucVu" Relationship="CompanyModel.FK_NhanVien_ChucVu" FromRole="NhanVien" ToRole="ChucVu" />
         </EntityType>
         <EntityType Name="PhongBan">
           <Key>
@@ -109,7 +135,32 @@
             <End Role="PhongBan" EntitySet="PhongBans" />
             <End Role="NhanVien" EntitySet="NhanViens" />
           </AssociationSet>
+          <EntitySet Name="ChucVus" EntityType="CompanyModel.ChucVu" />
+          <AssociationSet Name="FK_NhanVien_ChucVu" Association="CompanyModel.FK_NhanVien_ChucVu">
+            <End Role="ChucVu" EntitySet="ChucVus" />
+            <End Role="NhanVien" EntitySet="NhanViens" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ChucVu">
+          <Key>
+            <PropertyRef Name="maChucVu" />
+          </Key>
+          <Property Name="maChucVu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tenChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NhanViens" Relationship="CompanyModel.FK_NhanVien_ChucVu" FromRole="ChucVu" ToRole="NhanVien" />
+        </EntityType>
+        <Association Name="FK_NhanVien_ChucVu">
+          <End Type="CompanyModel.ChucVu" Role="ChucVu" Multiplicity="0..1" />
+          <End Type="CompanyModel.NhanVien" Role="NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucVu">
+              <PropertyRef Name="maChucVu" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="maChucVu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -119,6 +170,7 @@
           <EntitySetMapping Name="NhanViens">
             <EntityTypeMapping TypeName="CompanyModel.NhanVien">
               <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="maChucVu" ColumnName="maChucVu" />
                 <ScalarProperty Name="maNhanVien" ColumnName="maNhanVien" />
                 <ScalarProperty Name="tenNhanVien" ColumnName="tenNhanVien" />
                 <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
@@ -144,6 +196,14 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChucVus">
+            <EntityTypeMapping TypeName="CompanyModel.ChucVu">
+              <MappingFragment StoreEntitySet="ChucVu">
+                <ScalarProperty Name="tenChucVu" ColumnName="tenChucVu" />
+                <ScalarProperty Name="maChucVu" ColumnName="maChucVu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

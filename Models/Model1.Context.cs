@@ -28,5 +28,6 @@ namespace DataBase_Nhom2.Models
         public DbSet<NhanVien> NhanViens { get; set; }
         public DbSet<PhongBan> PhongBans { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
+        public DbSet<ChucVu> ChucVus { get; set; }
     }
 }

@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="CompanyModel.PhongBan" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CompanyModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="CompanyModel.FK_NhanVien_PhongBan" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CompanyModel.ChucVu" Width="1.5" PointX="3.375" PointY="4.875" />
+        <AssociationConnector Association="CompanyModel.FK_NhanVien_ChucVu" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <label class="control-label col-md-2">Phòng ban</label>
         <div class="col-md-10">
             <select name="maPhong" class="form-control">
@@ -71,9 +71,22 @@
         </div>
     </div>
 
+    <div class="form-group mt-2">
+        <label class="control-label col-md-2">Chức vụ</label>
+        <div class="col-md-10">
+            <select name="maPhong" class="form-control">
+                @foreach (var i in new DataBase_Nhom2.Models.CompanyEntities1().ChucVus.ToList())
+                {
+                    <option value="@i.maChucVu">@i.tenChucVu</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.maPhong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-info mt-2" />
+            <input type="submit" value="Lưu" class="btn btn-info mt-2" />
         </div>
     </div>
 </div>

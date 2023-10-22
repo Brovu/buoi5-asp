@@ -1,0 +1,40 @@
+﻿@model IEnumerable<DataBase_Nhom2.Models.ChucVu>
+
+@{
+    ViewBag.Title = "Danh sách chức vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách chức vụ trong công ty</h2>
+
+<p>
+    @Html.ActionLink("Thêm Chức vụ", "AddLevel")
+</p>
+<table class="table mt-2">
+    <tr>
+        <th>
+            Mã chức vụ
+        </th>
+        <th>
+            Tên chức vụ
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.maChucVu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tenChucVu)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "EditLevel", new { id = item.maChucVu }) |
+                @Html.ActionLink("Xóa", "DeleteLevel", new { id = item.maChucVu })
+            </td>
+        </tr>
+    }
+
+</table>

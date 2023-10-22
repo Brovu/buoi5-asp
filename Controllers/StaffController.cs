@@ -16,11 +16,36 @@ namespace DataBase_Nhom2.Controllers
             /*m => m.tenNhanVien.ToLower().Contains(filter.ToLower()) == true & (*/
             CompanyEntities1 db = new CompanyEntities1();
             List<NhanVien> listNews = db.NhanViens.Where(m => m.maPhong == id | id == null).ToList();
+            Dictionary<int, decimal> phongBanLuongTotal = new Dictionary<int, decimal>();
+
+            foreach (var nv in listNews)
+            {
+                int? maPhong = nv.maPhong;
+                decimal luong = nv.luong ?? 0m;
+                if (maPhong.HasValue)
+                {
+                    if (phongBanLuongTotal.ContainsKey(maPhong.Value))
+                    {
+                        phongBanLuongTotal[maPhong.Value] += luong;
+                    }
+                    else
+                    {
+                        phongBanLuongTotal[maPhong.Value] = luong;
+                    }
+
+                }
+                ViewBag.Total = phongBanLuongTotal;
+
+
+            }
+
             if (listNews.Count == 0)
             {
                 return View(db.NhanViens.ToList());
+
             } else
             {
+                ViewBag.Number = listNews.Count;
                 return View(listNews);
 
             }

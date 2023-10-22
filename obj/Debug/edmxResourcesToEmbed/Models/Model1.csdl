@@ -11,6 +11,8 @@
     <Property Name="hinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="maPhong" Type="Int32" />
     <NavigationProperty Name="PhongBan" Relationship="Self.FK_NhanVien_PhongBan" FromRole="NhanVien" ToRole="PhongBan" />
+    <Property Name="maChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ChucVu" Relationship="CompanyModel.FK_NhanVien_ChucVu" FromRole="NhanVien" ToRole="ChucVu" />
   </EntityType>
   <EntityType Name="PhongBan">
     <Key>
@@ -50,5 +52,30 @@
       <End Role="PhongBan" EntitySet="PhongBans" />
       <End Role="NhanVien" EntitySet="NhanViens" />
     </AssociationSet>
+    <EntitySet Name="ChucVus" EntityType="CompanyModel.ChucVu" />
+    <AssociationSet Name="FK_NhanVien_ChucVu" Association="CompanyModel.FK_NhanVien_ChucVu">
+      <End Role="ChucVu" EntitySet="ChucVus" />
+      <End Role="NhanVien" EntitySet="NhanViens" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="ChucVu">
+    <Key>
+      <PropertyRef Name="maChucVu" />
+    </Key>
+    <Property Name="maChucVu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="tenChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NhanViens" Relationship="CompanyModel.FK_NhanVien_ChucVu" FromRole="ChucVu" ToRole="NhanVien" />
+  </EntityType>
+  <Association Name="FK_NhanVien_ChucVu">
+    <End Type="CompanyModel.ChucVu" Role="ChucVu" Multiplicity="0..1" />
+    <End Type="CompanyModel.NhanVien" Role="NhanVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChucVu">
+        <PropertyRef Name="maChucVu" />
+      </Principal>
+      <Dependent Role="NhanVien">
+        <PropertyRef Name="maChucVu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
